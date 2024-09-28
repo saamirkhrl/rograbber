@@ -15,16 +15,13 @@ function Input() {
     setError("");
 
     try {
-      const response = await fetch(
-        "https://users.roblox.com/v1/usernames/users",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ usernames: [input] }),
-        }
-      );
+      const response = await fetch("/api/v1/usernames/users", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ usernames: [input] }),
+      });
 
       const data = await response.json();
       if (data.data && data.data.length > 0) {
@@ -45,7 +42,7 @@ function Input() {
   const getPFP = async (userId) => {
     try {
       const response = await fetch(
-        `https://thumbnails.roblox.com/v1/users/avatar-headshot?userIds=${userId}&size=150x150&format=Png&isCircular=false`,
+        `/pfp/v1/users/avatar-headshot?userIds=${userId}&size=150x150&format=Png&isCircular=false`,
         {
           method: "GET",
           headers: {
@@ -72,7 +69,7 @@ function Input() {
   const getRelation = async (userId) => {
     try {
       const friends_res = await fetch(
-        `https://users.roblox.com/v1/usernames/users/${userId}/friends/count`,
+        `/api/v1/usernames/users/${userId}/friends/count`,
         {
           method: "GET",
           headers: {
@@ -81,7 +78,7 @@ function Input() {
         }
       );
       const followers_res = await fetch(
-        `https://users.roblox.com/v1/usernames/users/${userId}/followers/count`,
+        `/api/v1/usernames/users/${userId}/followers/count`,
         {
           method: "GET",
           headers: {
@@ -90,7 +87,7 @@ function Input() {
         }
       );
       const followings_res = await fetch(
-        `https://users.roblox.com/v1/usernames/users/${userId}/followings/count`,
+        `/api/v1/usernames/users/${userId}/followings/count`,
         {
           method: "GET",
           headers: {
@@ -117,16 +114,13 @@ function Input() {
 
   const getLastOnline = async (UserId) => {
     try {
-      const lastOnlineRes = await fetch(
-        "https://presence.roblox.com/v1/presence/last-online",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ userIds: [UserId] }),
-        }
-      );
+      const lastOnlineRes = await fetch("/presence/v1/presence/last-online", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ userIds: [UserId] }),
+      });
       const lastOnlineData = await lastOnlineRes.json();
       setUserData((prevUserData) =>
         prevUserData.map((user) => ({

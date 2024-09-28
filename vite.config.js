@@ -6,22 +6,22 @@ export default defineConfig({
   plugins: [react()],
   server: {
     proxy: {
-      "rograbber.vercel.app/api": {
+      "/api": {
         target: "https://users.roblox.com",
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api/, ""),
       },
-      "rograbber.vercel.app/pfp": {
+      "/pfp": {
         target: "https://thumbnails.roblox.com",
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/pfp/, ""),
       },
-      "rograbber.vercel.app/users": {
+      "/users": {
         target: "https://friends.roblox.com",
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/users/, ""),
       },
-      "rograbber.vercel.app/presence": {
+      "/presence": {
         target: "https://presence.roblox.com",
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/presence/, ""),
