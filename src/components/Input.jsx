@@ -16,7 +16,7 @@ function Input() {
 
     try {
       const response = await fetch(
-        "rograbber.vercel.app/api/v1/usernames/users",
+        "https://rograbber.vercel.app/api/v1/usernames/users",
         {
           method: "POST",
           headers: {
@@ -45,7 +45,7 @@ function Input() {
   const getPFP = async (userId) => {
     try {
       const response = await fetch(
-        `rograbber.vercel.app/pfp/v1/users/avatar-headshot?userIds=${userId}&size=150x150&format=Png&isCircular=false`,
+        `https://rograbber.vercel.app/pfp/v1/users/avatar-headshot?userIds=${userId}&size=150x150&format=Png&isCircular=false`,
         {
           method: "GET",
           headers: {
@@ -72,7 +72,7 @@ function Input() {
   const getRelation = async (userId) => {
     try {
       const friends_res = await fetch(
-        `rograbber.vercel.app/users/v1/users/${userId}/friends/count`,
+        `https://rograbber.vercel.app/users/v1/users/${userId}/friends/count`,
         {
           method: "GET",
           headers: {
@@ -81,7 +81,7 @@ function Input() {
         }
       );
       const followers_res = await fetch(
-        `rograbber.vercel.app/users/v1/users/${userId}/followers/count`,
+        `https://rograbber.vercel.app/users/v1/users/${userId}/followers/count`,
         {
           method: "GET",
           headers: {
@@ -90,7 +90,7 @@ function Input() {
         }
       );
       const followings_res = await fetch(
-        `rograbber.vercel.app/users/v1/users/${userId}/followings/count`,
+        `https://rograbber.vercel.app/users/v1/users/${userId}/followings/count`,
         {
           method: "GET",
           headers: {
@@ -118,7 +118,7 @@ function Input() {
   const getLastOnline = async (UserId) => {
     try {
       const lastOnlineRes = await fetch(
-        "rograbber.vercel.app/presence/v1/presence/last-online",
+        "https://rograbber.vercel.app/presence/v1/presence/last-online",
         {
           method: "POST",
           headers: {
