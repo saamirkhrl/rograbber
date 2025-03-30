@@ -26,9 +26,24 @@ function Input() {
       const data = await response.json();
       if (data.data && data.data.length > 0) {
         setUserData(data.data);
-        await getPFP(data.data[0].id);
-        await getRelation(data.data[0].id);
-        await getLastOnline(data.data[0].id);
+        try {
+          await getPFP(data.data[0].id);
+        } catch (error) {
+          console.log(error);
+          setError("Error fetching profile picture.");
+        }
+        try {
+          await getRelation(data.data[0].id);
+        } catch (error) {
+          console.log(error);
+          setError("Error fetching user relations.");
+        }
+        try {
+          await getLastOnline(data.data[0].id);
+        } catch (error) {
+          console.log(error);
+          setError("Error fetching last online status.");
+        }
       } else {
         setUserData([]);
         setError("No user data found.");
@@ -62,7 +77,7 @@ function Input() {
       }
     } catch (error) {
       console.log(error);
-      setError("Error fetching user profile picture");
+      setError("Error fetching user profile picture.");
     }
   };
 
@@ -122,15 +137,24 @@ function Input() {
         body: JSON.stringify({ userIds: [UserId] }),
       });
       const lastOnlineData = await lastOnlineRes.json();
-      setUserData((prevUserData) =>
-        prevUserData.map((user) => ({
-          ...user,
-          last_online: lastOnlineData.lastOnlineTimestamps[0].lastOnline,
-        }))
-      );
+
+      if (
+        lastOnlineData.lastOnlineTimestamps &&
+        lastOnlineData.lastOnlineTimestamps.length > 0
+      ) {
+        setUserData((prevUserData) =>
+          prevUserData.map((user) => ({
+            ...user,
+            last_online: lastOnlineData.lastOnlineTimestamps[0].lastOnline,
+          }))
+        );
+      } else {
+        console.log("No last online data available.");
+        setError("No last online data available.");
+      }
     } catch (error) {
       console.log(error);
-      setError("Error fetching last online, please try again");
+      setError("Error fetching last online, please try again.");
     }
   };
 
